@@ -1,8 +1,9 @@
+import os
 from fastapi import FastAPI, Request
 import requests
-import os
 
 app = FastAPI()
+
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
@@ -17,10 +18,31 @@ async def chat(request: Request):
     }
     data = {
         "messages": [{"role": "user", "content": user_message}],
-        "model": "llama3-8b-8192",  # or llama3-70b-8192 if you wanna get nasty
+        "model": "llama3-8b-8192",
         "temperature": 0.7,
         "max_tokens": 200,
     }
 
     response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=data)
+
     return response.json()
+
+
+
+
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@app.on_event("startup")
+async def startup_event():
+    if GROQ_API_KEY:
+        logger.info("✅ GROQ_API_KEY loaded successfully.")
+    else:
+        logger.error("❌ GROQ_API_KEY is missing! Check your environment variables.")
+
+        
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))

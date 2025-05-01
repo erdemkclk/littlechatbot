@@ -1,10 +1,24 @@
 import os
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import requests
 
 app = FastAPI()
 
+# Mount static files
+app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
 
+# Serve index.html for root and fallback
+@app.get("/")
+async def serve_frontend():
+    return FileResponse("static/index.html")
+
+@app.get("/{path:path}")
+async def serve_catch_all(path: str):
+    return FileResponse("static/index.html")
+
+# Your chat endpoint
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 @app.post("/chat")
@@ -23,21 +37,9 @@ async def chat(request: Request):
         "max_tokens": 200,
     }
 
-    response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=data)
-
+    response = requests.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers=headers,
+        json=data
+    )
     return response.json()
-
-
-
-
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-@app.on_event("startup")
-async def startup_event():
-    if GROQ_API_KEY:
-        logger.info("✅ GROQ_API_KEY loaded successfully.")
-    else:
-        logger.error("❌ GROQ_API_KEY is missing! Check your environment variables.")

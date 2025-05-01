@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  padding: 2rem;
+  background: #111;
+  color: #eee;
+  font-family: sans-serif;
+}
+
+input, button {
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+
+.chat-box {
+  margin: 1rem 0;
+  white-space: pre-wrap;
+}
+
+.user {
+  color: #6cf;
+}
+
+.assistant {
+  color: #f69;
+}

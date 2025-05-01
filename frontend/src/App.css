@@ -1,0 +1,20 @@
+.app {
+  font-family: sans-serif;
+  padding: 2rem;
+  background: #111;
+  color: #eee;
+  min-height: 100vh;
+}
+
+.chat-box {
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+}
+
+.user {
+  color: #6cf;
+}
+
+.assistant {
+  color: #f69;
+}

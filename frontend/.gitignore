@@ -1,0 +1,44 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignore Vite dev artifacts
+/frontend/node_modules/
+frontend/dist/
+
+# Ignore actual build assets (already in static/)
+static/assets/*
+
+# Python
+__pycache__/
+.env
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Vite build artifacts
+frontend/dist/
+static/assets/
+

@@ -41,8 +41,3 @@ async def startup_event():
         logger.info("✅ GROQ_API_KEY loaded successfully.")
     else:
         logger.error("❌ GROQ_API_KEY is missing! Check your environment variables.")
-
-        
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
